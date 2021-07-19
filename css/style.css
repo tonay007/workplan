@@ -1,0 +1,32 @@
+body{
+    background-image: url("../img/bg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+.box, .box-large{
+    text-align: center;
+    width: 60vw;
+    height: 70vh;
+    background-color: white;
+    border-radius: 10px;
+    margin: 15vh 0vw;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+}
+.wrong-token, .welcome-area, .task-area{
+    display: none;
+}
+/* .task-area{display: block;} .login-area{display: none;} */
+.box-large{
+    width: 95vw;
+    height: 90vh;
+    background-color: white;
+    border-radius: 10px;
+    margin: 5vh 0vw;
+    padding: 10px;
+}
