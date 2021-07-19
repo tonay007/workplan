@@ -55,10 +55,12 @@ const fetchTasks = (token, date) => {
         length.appendChild(lengthText);
         taskContainer.appendChild(length);
     }
-    else{
+    else {
         noTaskFoundContainer.style.display = "block";
         const nextDate = checkNextTask(token, date);
-        nextTaskDate.innerText = nextDate;
+        if(nextDate){
+            nextTaskDate.innerText = nextDate[0] || true;
+        }
     }
 }
 
@@ -66,7 +68,22 @@ const checkNextTask = (token, date) => {
     let dateParticles = date.split("-");
     dateParticles = arrayNumConvert(dateParticles);
     const allTasks = tasks.filter(task => task.token == token[0]);
-    allTasksDates
+    let allTasksDates = [];
+    allTasks.map(task => allTasksDates.push(task.date));
+    let resultDates = []
+    for (let i = 0; i < allTasksDates.length; i++){
+        let matchedDateParticles = allTasksDates[i].split("-");
+        matchedDateParticles = arrayNumConvert(matchedDateParticles);
+        if(dateParticles[0] <= matchedDateParticles[0] && dateParticles[1] <= matchedDateParticles[1] && dateParticles[2] <= matchedDateParticles[2]){
+            resultDates.push(allTasksDates[i]);
+        }
+    }
+    if(resultDates.length !== 0){
+        return resultDates;
+    }
+    else{
+        document.querySelector(".next-task-text").innerHTML = 'Your next task will appear soon!'
+    }
 }
 
 const arrayNumConvert = array => {
