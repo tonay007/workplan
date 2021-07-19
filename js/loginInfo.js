@@ -27,7 +27,7 @@ let loginInfo = [
     {
         token: 'BOC-F-005',
         name: 'Luran Meahda Ramiz Rafin',
-        role: 'Front End Developer'
+        role: 'Front End Developer And Graphic Designer'
     },
     {
         token: 'BOC-B-001',

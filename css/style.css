@@ -21,7 +21,6 @@ body{
 .wrong-token, .welcome-area, .task-area{
     display: none;
 }
-/* .task-area{display: block;} .login-area{display: none;} */
 .box-large{
     width: 95vw;
     height: 90vh;
@@ -29,4 +28,10 @@ body{
     border-radius: 10px;
     margin: 5vh 0vw;
     padding: 10px;
+}
+.task{
+    padding: 15px 20px;
+    border: 1px double gray;
+    width: 100%;
+    border-radius: 20px;
 }

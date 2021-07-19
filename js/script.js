@@ -35,7 +35,7 @@ document.querySelector("#login").addEventListener("click", () => {
 })
 
 const fetchDate = () => {
-    const dateAndTime = new Date();
+    const dateAndTime = new Date();//"July 25, 2021 13:15:30"
     const year = dateAndTime.getFullYear();
     let month = dateAndTime.getMonth() + 1;
     const date = dateAndTime.getDate();
@@ -45,21 +45,36 @@ const fetchDate = () => {
 }
 
 const fetchTasks = (token, date) => {
-    const taskContainer = document.querySelector(".task");
+    const taskLengthContainer = document.querySelector(".total-task-found");
     const noTaskFoundContainer = document.querySelector("#no-tasks-found");
+    const taskFoundContainer = document.querySelector("#task-found");
     const nextTaskDate = document.querySelector('.next-task-date');
     const foundTasks = tasks.filter(task => task.token === token[0] && task.date === date)
     if (foundTasks.length !== 0) {
         const length = document.createElement("h3");
         const lengthText = document.createTextNode("Task Found: " + foundTasks.length)
         length.appendChild(lengthText);
-        taskContainer.appendChild(length);
+        taskLengthContainer.appendChild(length);
+        for(let i = 0; i < foundTasks.length; i++){
+            let examples = foundTasks[i].examples;
+            taskFoundContainer.innerHTML = taskFoundContainer.innerHTML + `
+            <div class="task text-start">
+                <h4 class="task-heading">${foundTasks[0].work}</h4>
+                <p class="task-des">${foundTasks[0].description}</p>
+                <h5>Submit it before <span class="submit-date">${foundTasks[0].deadline}</span></h5>
+                <h6 class="exampleLinks">You can visit these websites for idea: </h6>
+            </div>
+            `;
+            for(let j = 0; j < examples.length; j++){
+                document.querySelector(".exampleLinks").innerHTML = document.querySelector(".exampleLinks").innerHTML + `<a href=${examples[j]}>${examples[j]}</a>   `
+            }
+        }
     }
     else {
         noTaskFoundContainer.style.display = "block";
         const nextDate = checkNextTask(token, date);
-        if(nextDate){
-            nextTaskDate.innerText = nextDate[0] || true;
+        if (nextDate) {
+            nextTaskDate.innerText = nextDate[0];
         }
     }
 }
@@ -71,17 +86,17 @@ const checkNextTask = (token, date) => {
     let allTasksDates = [];
     allTasks.map(task => allTasksDates.push(task.date));
     let resultDates = []
-    for (let i = 0; i < allTasksDates.length; i++){
+    for (let i = 0; i < allTasksDates.length; i++) {
         let matchedDateParticles = allTasksDates[i].split("-");
         matchedDateParticles = arrayNumConvert(matchedDateParticles);
-        if(dateParticles[0] <= matchedDateParticles[0] && dateParticles[1] <= matchedDateParticles[1] && dateParticles[2] <= matchedDateParticles[2]){
+        if (dateParticles[0] <= matchedDateParticles[0] && dateParticles[1] <= matchedDateParticles[1] && dateParticles[2] <= matchedDateParticles[2]) {
             resultDates.push(allTasksDates[i]);
         }
     }
-    if(resultDates.length !== 0){
+    if (resultDates.length !== 0) {
         return resultDates;
     }
-    else{
+    else {
         document.querySelector(".next-task-text").innerHTML = 'Your next task will appear soon!'
     }
 }
@@ -96,3 +111,9 @@ document.querySelector("#show-task").addEventListener("click", () => {
     welcomeArea.style.display = 'none';
     taskArea.style.display = 'block';
 })
+
+
+//removable
+// document.querySelector("#token").value = "BOC-A-001";
+// document.querySelector("#login").click();
+// document.querySelector("#show-task").click();
